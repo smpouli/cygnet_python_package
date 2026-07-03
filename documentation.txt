@@ -1,0 +1,198 @@
+
+First step:
+
+import cygnet
+
+
+Use cases
+
+1/ Count all concepts 
+
+c = cygnet.Cygnet().concepts()
+print (len(c)) 
+
+* Filter by POS only
+
+c = cygnet.Cygnet().concepts(pos="noun")
+
+Note: only four POS currently present (noun, verb, adj and adv) in the table used
+
+* Filter by language(s)
+
+c = cygnet.Cygnet().concepts(langs="it")
+
+c = cygnet.Cygnet().concepts(pos="adv", langs="it")
+
+* Filter by  by form
+
+c = cygnet.Cygnet().concepts(form="bal")
+
+c = cygnet.Cygnet().concepts(form="bal", pos="noun", langs="fr")
+
+
+
+
+2/ Working with concepts
+
+=> find the POS and index of a concept
+for a in c:
+	print (a.pos())
+
+=> find the index of a concept
+for a in c:
+	print (a.index())
+
+=> find the definition of a concept
+# the offset is not implemented because the data is lacking
+f = c.definition("es")
+print (definition.text())
+
+
+=> find semantically related concepts:
+
+c =cygnet.Cygnet().concepts(form="cheek", langs="en")
+for a in c:
+    rel=a.holonyms()
+
+Available relationships:
+- hypernymy: a.hypernyms()
+- hyponyny: a.hyponyms()
+- meronymy: a.meronyms ()
+- holonyms: a.holonyms()
+
+=> Retrieve senses from concepts:
+
+c =cygnet.Cygnet().concepts(form="cheek", langs="en")
+for a in c:
+    senses=a.senses("en")
+    print (a, senses)
+
+
+=> Retrieve lexemes from concepts: 
+
+
+c =cygnet.Cygnet().concepts(form="cheek", langs="en")
+for a in c:
+    words=a.lexemes("en")
+    print (a, words)
+
+
+3/ Count all lexemes
+
+c = cygnet.Cygnet().lexemes()
+print (len(c))
+
+
+* Filter by form
+
+c = cygnet.Cygnet().lexemes(form="but")
+print (c)
+
+* Filter from language(s)
+
+c = cygnet.Cygnet().lexemes(form="but", langs=["en", "fr"])
+
+print (c)
+
+
+	
+4/ Working with lexemes
+
+=> find the index of the lexeme
+
+c =cygnet.Cygnet().concepts(form="cheek", langs="en")
+for a in c:
+    words=a.lexemes()
+    for w in words:
+        print (w.index())
+
+=> find the language of the lexeme:
+c =cygnet.Cygnet().concepts(form="sudden", langs="en")
+print (c)
+for a in c:
+    words=a.lexemes()
+    for w in words:
+        print (w.lang())
+		
+
+=> find the lemma	
+c =cygnet.Cygnet().concepts(form="been")
+for a in c:
+    words=a.lexemes("en")
+    for w in words:
+        print (w.lemma())
+
+
+=> print all forms of the lemma:
+c =cygnet.Cygnet().concepts(form="been")
+for a in c:
+    words=a.lexemes("en")
+    for w in words:
+        print (w.all_forms())
+		
+
+=> find the concepts related to the lexeme
+
+c =cygnet.Cygnet().concepts(form="pray")
+for a in c:
+    words=a.lexemes("en")
+    for w in words:
+        print (w.concepts())
+		
+
+=> find the senses related to the lexeme
+c =cygnet.Cygnet().concepts(form="pray")
+for a in c:
+    words=a.lexemes("en")
+    for w in words:
+        print (w.senses())
+
+5/ Count all senses
+
+c = cygnet.Cygnet().senses()
+print (len(c))
+
+* Filter by form
+
+c = cygnet.Cygnet().senses(form="chaos")
+print (c)
+
+* Filter from language(s)
+
+c = cygnet.Cygnet().senses(form="chaos", langs=["en", "fr"])
+print (c)
+
+
+6/ Working with senses
+
+=> find the index of the sense
+
+c = cygnet.Cygnet().senses(form="chaos", langs=["en", "fr"])
+
+for b in c:
+    print (b, b.index())
+	
+	
+	
+=> find the concepts related to the sense
+c = cygnet.Cygnet().senses(form="chaos", langs=["en"])
+
+for b in c:
+    print (b, b.concept())
+	
+
+=> find the lexeme related to the sense:
+
+c = cygnet.Cygnet().senses(form="chaos")
+
+for b in c:
+    print (b, b.lexeme(), b.lang())
+
+=> display examples of the sense and offsets
+
+c =cygnet.Cygnet().concepts(form="sordid")
+for a in c:
+    words=a.lexemes("en")
+    for w in words:
+        for d in w.senses():
+            print (d, d.examples().text(), d.examples().sense_offsets())
