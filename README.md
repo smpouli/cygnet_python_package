@@ -4,5 +4,5 @@ This package enables to explore concepts, lexemes and senses. It also possible t
 
 This python library can now be installed via pip:
 
-pip install cyg
+    pip install cyg
 
