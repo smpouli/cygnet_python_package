@@ -1,0 +1,4 @@
+If for whatever reason, the database cannot be downloaded automatically:
+
+2- Download the database here:https://github.com/rowanhm/cygnet/releases/latest/download/cygnet.db.gz
+3- Unzip it and store it in this folder.
