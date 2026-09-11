@@ -228,7 +228,7 @@ for w in c:
 
 ### 3/ Working with senses
 
-**counting all senses**
+**Counting all senses**
 ```python
 c = cyg.senses()
 print(len(c))
