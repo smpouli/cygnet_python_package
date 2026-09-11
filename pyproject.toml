@@ -1,0 +1,101 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cyg"
+description = "A Python library to query the Cygnet multilingual wordnet database"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+dynamic = ["version"]
+keywords = ["wordnet", "cygnet", "multilingual", "linguistics", "language", "nlp"]
+authors = [
+    { name = "CultureLab" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Database",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Text Processing",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "build",
+    "mypy",
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "twine",
+]
+
+[project.urls]
+Homepage = "https://github.com/smpouli/cygnet_python_package"
+Repository = "https://github.com/smpouli/cygnet_python_package"
+Documentation = "https://github.com/smpouli/cygnet_python_package/blob/main/README.md"
+Online-interface = "https://cygnet.maudslay.eu/"
+
+[tool.hatch.version]
+path = "src/cyg/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cyg"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/cyg",
+    "README.md",
+    "LICENSE",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = [
+    "E501",
+    "B011",
+]
+per-file-ignores = { "tests/*" = ["F401"], "src/cyg/storage.py" = ["UP035"] }
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
+files = ["src/cyg"]
+warn_unused_configs = true
+show_error_codes = true
+
+[tool.pytest.ini_options]
+addopts = "--cov=cyg --cov-report=term-missing --cov-fail-under=100"
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::ResourceWarning",
+    "ignore::pytest.PytestUnraisableExceptionWarning",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["cyg"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
