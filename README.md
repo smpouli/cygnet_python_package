@@ -108,7 +108,7 @@ for item in c:
 ```python
 c = cyg.concepts(form="cheek", langs="en")
 for a in c:
-    rel = a.hypermyms()
+    rel = a.hypernyms()
     print(rel)
 ```
 
