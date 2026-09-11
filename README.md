@@ -151,7 +151,7 @@ print(len(c))
 
 ```python
 c = cyg.lexemes(form="but")
-print(c)
+print(len(c))
 ```
 
 **Filtering lexemes by form (partial match)**
@@ -159,14 +159,14 @@ print(c)
 ```python
 c = cyg.lexemes(contains="but")
 d = cyg.lexemes(startswith="but")
-print(c, d)
+print(len(c), len(d))
 ```
 
 **Filtering lexemes by language(s)**
 
 ```python
 c = cyg.lexemes(langs=["en", "fr"])
-print(c)
+print(len(c))
 ```
 
 **Filtering lexemes by form and language(s)**
@@ -254,7 +254,7 @@ print(c, d)
 
 ```python
 c = cyg.senses(langs=["en", "fr"])
-print(c)
+print(len(c))
 ```
 
 **Filter senses by form and language(s)**
